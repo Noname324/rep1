@@ -8,6 +8,8 @@ use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Flash\Direct as Flash;
 
+require "dbsettings.php";
+
 // Определяем некоторые константы с абсолютными путями
 // для использования с локальными ресурасами
 define('BASE_PATH', dirname(__DIR__));
@@ -39,21 +41,21 @@ $di->set(
     }
 );
 
+
 // Настраиваем сервис для работы с БД
 $di->set(
     'db',
     function () {
         return new DbAdapter(
             [
-                'host'     => '127.0.0.1',
-                'username' => 'root',
-                'password' => '',
-                'dbname'   => 'reg',
+                'host'     => DB_Settings::host,
+                'username' => DB_Settings::username,
+                'password' => DB_Settings::password,
+                'dbname'   => DB_Settings::dbname
             ]
         );
     }
 );
-
 // Setup a base URI
 $di->set(
     'url',
